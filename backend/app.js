@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const bookRoutes = require('./routes/books');
 const userRoutes = require('./routes/user');
 const app = express();
-
+const path = require("path");
 app.use(express.json());
 
 // Middleware pour gérer les CORS
@@ -26,8 +26,8 @@ mongoose.connect('mongodb+srv://florapha02:lAtO9bY52J0KR3cW@cluster0.kaas7.mongo
 
 app.use(bodyParser.json());
 
-
-;
 app.use('/api/auth', userRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
