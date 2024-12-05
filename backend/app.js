@@ -5,7 +5,12 @@ const bookRoutes = require('./routes/books');
 const userRoutes = require('./routes/user');
 const app = express();
 const path = require("path");
+require('dotenv').config();
 app.use(express.json());
+
+
+const PORT = process.env.PORT || 4000;
+const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware pour gérer les CORS
 app.use((req, res, next) => {
@@ -16,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 // Connexion à MongoDB
-mongoose.connect('mongodb+srv://florapha02:lAtO9bY52J0KR3cW@cluster0.kaas7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connexion à MongoDB réussie !');
   })
